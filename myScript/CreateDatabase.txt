@@ -1,0 +1,8 @@
+## Postgresql
+
+create database travelers_board;
+create user root with password 'abcd1234';
+
+alter role root set client_encoding to 'utf-8';
+alter role root set timezone to 'Asia/Seoul';
+grant all privileges on database travelers_board to root;
