@@ -19,12 +19,12 @@ class BoardViewSet(viewsets.ModelViewSet):
 
 
 class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.all()
+    queryset = Post.objects.all().order_by('-create_date')
     serializer_class = PostSerializer
 
 
 class CommentViewSet(viewsets.ModelViewSet):
-    queryset = Comment.objects.all()
+    queryset = Comment.objects.all().order_by('-create_date')
     serializer_class = CommentSerializer
 
     def retrieve(self, request, pk, *args, **kwargs):
@@ -32,5 +32,3 @@ class CommentViewSet(viewsets.ModelViewSet):
         post_comments = post.comments.all().order_by('-create_date')
         serializer = CommentSerializer(post_comments, many=True)
         return Response(serializer.data)
-
-
