@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
@@ -24,11 +24,6 @@ class PostViewSet(viewsets.ModelViewSet):
 
 
 class CommentViewSet(viewsets.ModelViewSet):
-    queryset = Comment.objects.all().order_by('-create_date')
+    queryset = Comment.objects.filter(parent=None).order_by('-create_date')
     serializer_class = CommentSerializer
 
-    def retrieve(self, request, pk, *args, **kwargs):
-        post = Post.objects.get(pk=pk)
-        post_comments = post.comments.all().order_by('-create_date')
-        serializer = CommentSerializer(post_comments, many=True)
-        return Response(serializer.data)

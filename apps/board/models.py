@@ -29,7 +29,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, null=True, blank=True, on_delete=models.CASCADE, related_name='comments')
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, related_name='childs')
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='childs')
     content = models.TextField(null=True, blank=True)
 
     creator = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='comments')

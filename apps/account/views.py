@@ -1,9 +1,13 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from apps.account import models, serializers
+from apps.account.models import User
+from apps.account.serializers import UserSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
     def list(self, request):
 
