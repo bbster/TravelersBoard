@@ -8,13 +8,13 @@ class BoardAdmin(admin.ModelAdmin):
 
 
 class PostAdmin(admin.ModelAdmin):
-    fields = ['board', 'title', 'content', 'creator']
-    list_display = ['id', 'board', 'title', 'content', 'creator', 'create_date', 'modify_date']
+    fields = ['board', 'title', 'content', 'creator', 'status']
+    list_display = ['id', 'board', 'title', 'content', 'creator', 'create_date', 'modify_date', 'status']
 
 
 class CommentAdmin(admin.ModelAdmin):
-    fields = ['post', 'content', 'parent', 'creator']
-    list_display = ['id', 'post', 'content', 'creator', 'parent', 'create_date']
+    fields = ['post', 'content', 'parent', 'creator', 'status']
+    list_display = ['id', 'post', 'content', 'creator', 'parent', 'create_date', 'status']
 
 
 admin.site.register(Board, BoardAdmin)

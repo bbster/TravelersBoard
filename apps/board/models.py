@@ -18,6 +18,7 @@ class Post(models.Model):
     board = models.ForeignKey('board.Board', on_delete=CASCADE, related_name='posts')
     title = models.CharField(max_length=50, blank=True, null=True)
     content = models.TextField(null=True, blank=True)
+    status = models.CharField(max_length=10, blank=True, null=True)
 
     creator = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='posts')
     create_date = models.DateTimeField(auto_now_add=True, editable=False)
@@ -31,6 +32,7 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, null=True, blank=True, on_delete=models.CASCADE, related_name='comments')
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='childs')
     content = models.TextField(null=True, blank=True)
+    status = models.CharField(max_length=10, blank=True, null=True)
 
     creator = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='comments')
     create_date = models.DateTimeField(auto_now_add=True, editable=False)

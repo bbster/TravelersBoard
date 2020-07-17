@@ -25,26 +25,8 @@ class PostSerializer(serializers.ModelSerializer):
             'creator',
             'create_date',
             'modify_date',
+            'status',
         )
-
-
-class CommentSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Comment
-        fields = (
-            'id',
-            'post',
-            'content',
-            'creator',
-            'create_date',
-            'parent',
-        )
-
-    def get_parent(self, instance):
-        serializer = self.__class__(instance.parent, many=True)
-        serializer.bind('', self)
-        return serializer.data
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -60,6 +42,7 @@ class CommentSerializer(serializers.ModelSerializer):
             'create_date',
             'parent',
             'childs',
+            'status',
         )
 
     def get_childs(self, instance):
