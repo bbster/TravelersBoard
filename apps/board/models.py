@@ -4,6 +4,8 @@ from apps.account.models import User
 
 
 class BaseModel(models.Model):
+    class Meta:
+        abstract = True
 
     def remove(self):
         self.status = 'removed'
