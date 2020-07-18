@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
 
     #  myapp
+    'apps.base',
     'apps.board',
     'apps.account',
 
@@ -61,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'apps.base.middlewares.DBTransactionMiddleware',
 ]
 
 REST_FRAMEWORK = {
