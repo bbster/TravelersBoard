@@ -25,19 +25,17 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.exclude(status="removed").order_by('-create_date')
     serializer_class = PostSerializer
 
-    def destroy(self, request, pk, *args, **kwargs):
-        post = Post.objects.get(pk=pk)
-        # post.status = 'removed'
-        # print(post)
-        serializer = PostSerializer(post, data={'status': 'removed'})
-        print(serializer)
+    def destroy(self, request, *args, **kwargs):
+        post = self.get_object()
+        post.status = 'removed'
+        post.save()
 
-        if serializer.is_valid():
-            serializer.save()
-            return Response(data=serializer.data, status=status.HTTP_200_OK)
-        else:
-            print(serializer.data)
-            return Response({"msg": "삭제 실패"}, status=status.HTTP_400_BAD_REQUEST)
+        post_comments = post.comments.all()
+        for objects in post_comments:
+            objects.status = 'removed'
+            objects.save()
+
+        return Response(status=status.HTTP_200_OK)
 
 
 class CommentViewSet(viewsets.ModelViewSet):
@@ -45,4 +43,6 @@ class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
 
     def destroy(self, request, *args, **kwargs):
-        pass
+        comment = self.get_object()
+        comment.status = 'removed'
+        comment.save()
