@@ -1,4 +1,3 @@
-from django.db.models import Q
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
@@ -27,22 +26,16 @@ class PostViewSet(viewsets.ModelViewSet):
 
     def destroy(self, request, *args, **kwargs):
         post = self.get_object()
-        post.status = 'removed'
-        post.save()
-
-        post_comments = post.comments.all()
-        for objects in post_comments:
-            objects.status = 'removed'
-            objects.save()
-
-        return Response(status=status.HTTP_200_OK)
+        post.remove()
+        return Response({"msg": "삭제 되었습니다."}, status=status.HTTP_200_OK)
 
 
 class CommentViewSet(viewsets.ModelViewSet):
-    queryset = Comment.objects.filter(~Q(status="removed"), parent=None).order_by('-create_date')
+    queryset = Comment.objects.filter(parent=None).exclude(status="removed").order_by('-create_date')
     serializer_class = CommentSerializer
 
     def destroy(self, request, *args, **kwargs):
         comment = self.get_object()
-        comment.status = 'removed'
-        comment.save()
+        comment.remove()
+
+        return Response({"msg": "삭제 되었습니다"}, status=status.HTTP_200_OK)

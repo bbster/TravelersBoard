@@ -3,7 +3,14 @@ from django.db.models import CASCADE
 from apps.account.models import User
 
 
-class Board(models.Model):
+class BaseModel(models.Model):
+
+    def remove(self):
+        self.status = 'removed'
+        self.save()
+
+
+class Board(BaseModel):
     unique_title = models.CharField(unique=True, max_length=100)
 
     creator = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='boards')
@@ -14,7 +21,7 @@ class Board(models.Model):
         return self.unique_title
 
 
-class Post(models.Model):
+class Post(BaseModel):
     board = models.ForeignKey('board.Board', on_delete=CASCADE, related_name='posts')
     title = models.CharField(max_length=50, blank=True, null=True)
     content = models.TextField(null=True, blank=True)
@@ -27,8 +34,14 @@ class Post(models.Model):
     def __str__(self):
         return self.title + self.creator.username
 
+    def remove(self):
+        post_comments = self.comments.all()
+        for comment in post_comments:
+            comment.remove()
+        super().remove()
 
-class Comment(models.Model):
+
+class Comment(BaseModel):
     post = models.ForeignKey(Post, null=True, blank=True, on_delete=models.CASCADE, related_name='comments')
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='childs')
     content = models.TextField(null=True, blank=True)
@@ -40,3 +53,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content + self.creator.username
+
+    def remove(self):
+        child_comments = self.childs.all()
+        for child_comment in child_comments:
+            child_comment.remove()
+        super().remove()
