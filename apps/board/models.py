@@ -1,5 +1,7 @@
 from django.db import models
 from django.db.models import CASCADE
+from tagging.fields import TagField
+
 from apps.account.models import User
 
 
@@ -28,6 +30,7 @@ class Post(BaseModel):
     title = models.CharField(max_length=50, blank=True, null=True)
     content = models.TextField(null=True, blank=True)
     status = models.CharField(max_length=10, blank=True, null=True)
+    tag = TagField()
 
     creator = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='posts')
     create_date = models.DateTimeField(auto_now_add=True, editable=False)

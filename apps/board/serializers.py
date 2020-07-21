@@ -23,6 +23,7 @@ class PostSerializer(serializers.ModelSerializer):
             'board',
             'title',
             'content',
+            'tag',
             'creator',
             'create_date',
             'modify_date',

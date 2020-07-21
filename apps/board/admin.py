@@ -8,8 +8,8 @@ class BoardAdmin(admin.ModelAdmin):
 
 
 class PostAdmin(admin.ModelAdmin):
-    fields = ['board', 'title', 'content', 'creator', 'status']
-    list_display = ['id', 'board', 'title', 'content', 'creator', 'create_date', 'modify_date', 'status']
+    fields = ['board', 'title', 'content', 'tag', 'creator', 'status']
+    list_display = ['id', 'board', 'title', 'content', 'tag', 'creator', 'create_date', 'modify_date', 'status']
 
 
 class CommentAdmin(admin.ModelAdmin):

@@ -37,9 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
 
-    #  myapp
+    # thirdparty package library
+    'rest_framework',
+    'tagging.apps.TaggingConfig',
+
+    #  my apps
     'apps.base',
     'apps.board',
     'apps.account',
