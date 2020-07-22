@@ -28,6 +28,7 @@ class PostSerializer(serializers.ModelSerializer):
             'create_date',
             'modify_date',
             'status',
+            'likes',
         )
 
 
@@ -45,6 +46,7 @@ class CommentSerializer(serializers.ModelSerializer):
             'parent',
             'childs',
             'status',
+            'likes',
         )
 
     def get_childs(self, instance):
