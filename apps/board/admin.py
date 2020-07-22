@@ -12,7 +12,7 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ('id', 'board', 'title', 'content', 'tag', 'creator', 'create_date', 'modify_date', 'status', 'get_likes')
 
     def get_likes(self, obj):
-        return ", ".join([str(p) for p in obj.likes.all()])
+        return ", ".join([str(like_user) for like_user in obj.likes.all()])
 
 
 class CommentAdmin(admin.ModelAdmin):
@@ -20,7 +20,7 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = ('id', 'post', 'content', 'creator', 'parent', 'create_date', 'status', 'get_likes')
 
     def get_likes(self, obj):
-        return ", ".join([str(p) for p in obj.likes.all()])
+        return ", ".join([str(like_user) for like_user in obj.likes.all()])
 
 
 admin.site.register(Board, BoardAdmin)
