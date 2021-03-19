@@ -13,7 +13,7 @@ decorator==4.4.2
 Django==3.0.8
 django-cors-headers==3.4.0
 django-test-plus==1.4.0
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 drf-yasg==1.17.1
 flake8==3.8.3
 idna==2.10
