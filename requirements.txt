@@ -10,7 +10,7 @@ colorama==0.4.3
 coreapi==2.3.3
 coreschema==0.0.4
 decorator==4.4.2
-Django==3.0.8
+Django==3.1.6
 django-cors-headers==3.4.0
 django-test-plus==1.4.0
 djangorestframework==3.11.0
